@@ -18,7 +18,10 @@ namespace SamuraiApp.Data
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            optionsBuilder.UseSqlServer(connectionString);
+            optionsBuilder.UseSqlServer(connectionString)
+                .LogTo(Console.WriteLine, new[] {DbLoggerCategory.Database.Command.Name},
+                Microsoft.Extensions.Logging.LogLevel.Information)
+                .EnableSensitiveDataLogging();
         }
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
